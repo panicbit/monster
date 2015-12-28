@@ -7,3 +7,9 @@ pub mod swap_tuple;
 pub use self::swap_tuple::SwapTupleExt;
 
 pub mod mutate;
+
+pub mod map_ref_mut;
+pub use self::map_ref_mut::{
+    MapRefMutExt,
+    map_ref_mut
+};
