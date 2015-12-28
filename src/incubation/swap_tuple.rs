@@ -1,6 +1,7 @@
 
 pub trait SwapTupleExt {
     type Result;
+    /// Swap the two tuple elements
     fn swap(self) -> Self::Result;
 }
 
