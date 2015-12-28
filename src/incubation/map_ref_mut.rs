@@ -18,7 +18,7 @@ use std::mem;
 pub unsafe fn map_ref_mut<T, F>(thing: &mut T, f: F) where
     F: Fn(T) -> T
 {
-    let dummy: T = unsafe { mem::uninitialized() };
+    let dummy: T = mem::uninitialized();
     let owned_thing = mem::replace(thing, dummy);
     let new_thing = f(owned_thing);
     let dummy = mem::replace(thing, new_thing);
