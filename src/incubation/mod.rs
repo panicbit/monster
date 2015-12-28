@@ -21,3 +21,6 @@ pub use self::zip_ends::{
     ZipEnds,
     ZipEndsIterExt
 };
+
+pub mod fmt;
+pub use self::fmt::format;
