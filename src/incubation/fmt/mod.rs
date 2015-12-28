@@ -1,5 +1,11 @@
 use std::fmt::Display;
 
+pub mod error;
+pub use self::error::{
+    Result,
+    Error
+};
+
 enum State {
     Normal,
     LeftBrace,
@@ -21,7 +27,7 @@ use self::State::*;
 ///
 /// assert_eq!(result.unwrap(), "You see {10} tiny monsters");
 /// ```
-pub fn format(fmt: &str, args: &[&Display]) -> Option<String> {
+pub fn format(fmt: &str, args: &[&Display]) -> Result {
     use std::fmt::Write;
     let mut args = args.iter();
     let mut result = String::with_capacity(fmt.len());
@@ -43,22 +49,22 @@ pub fn format(fmt: &str, args: &[&Display]) -> Option<String> {
                 // An escaped '}'
                 '}' => {
                     match args.next() {
-                        Some(arg) => write!(result, "{}", arg),
-                        None => return None
+                        Some(arg) => try!(write!(result, "{}", arg)),
+                        None => return Err(Error::NotEnoughArgs)
                     };
                     state = Normal
                 },
-                _  => return None // No named placeholders allowed
+                _  => return Err(Error::UnexpectedChar) // No named placeholders allowed
             },
             RightBrace => match ch {
                 '}' => {
                     result.push(ch);
                     state = Normal
                 },
-                _ => return None // No standalone right brace allowed
+                _ => return return Err(Error::UnexpectedRightBrace) // No standalone right brace allowed
             }
         }
     }
     
-    Some(result)
+    Ok(result)
 }
