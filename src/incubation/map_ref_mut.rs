@@ -2,6 +2,8 @@ use std::mem;
 
 /// Map the value of a mutable reference.
 /// Useful if you want to apply a `Fn(T) -> T` to a `&mut T`.
+/// This function is unsafe because panicking in `f`
+/// would leave the pointee uninitialized.
 ///
 /// # Example
 /// ```
@@ -9,11 +11,11 @@ use std::mem;
 ///
 /// let foo = &mut 123;
 ///
-/// map_ref_mut(foo, |n| n + 654);
+/// unsafe { map_ref_mut(foo, |n| n + 654) }
 ///
 /// assert_eq!(*foo, 777);
 /// ```
-pub fn map_ref_mut<T, F>(thing: &mut T, f: F) where
+pub unsafe fn map_ref_mut<T, F>(thing: &mut T, f: F) where
     F: Fn(T) -> T
 {
     let dummy: T = unsafe { mem::uninitialized() };
@@ -26,6 +28,8 @@ pub fn map_ref_mut<T, F>(thing: &mut T, f: F) where
 pub trait MapRefMutExt: Sized {
     /// Map the value of a mutable reference.
     /// Useful if you want to apply a `Fn(T) -> T` to a `&mut T`.
+    /// This function is unsafe because panicking in `f`
+    /// would leave the pointee uninitialized.
     ///
     /// # Example
     /// ```
@@ -33,11 +37,11 @@ pub trait MapRefMutExt: Sized {
     ///
     /// let mut foo = &mut 123;
     ///
-    /// foo.map_ref_mut(|n| n + 654);
+    /// unsafe { foo.map_ref_mut(|n| n + 654) }
     ///
     /// assert_eq!(*foo, 777);
     /// ```
-    fn map_ref_mut<F>(&mut self, f: F) where
+    unsafe fn map_ref_mut<F>(&mut self, f: F) where
         F: Fn(Self) -> Self
     {
         map_ref_mut(self, f)
