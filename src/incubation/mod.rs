@@ -13,3 +13,5 @@ pub use self::map_ref_mut::{
     MapRefMutExt,
     map_ref_mut
 };
+
+pub mod anon;
