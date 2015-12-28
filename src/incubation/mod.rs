@@ -5,3 +5,5 @@
 
 pub mod swap_tuple;
 pub use self::swap_tuple::SwapTupleExt;
+
+pub mod mutate;
