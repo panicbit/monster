@@ -15,3 +15,9 @@ pub use self::map_ref_mut::{
 };
 
 pub mod anon;
+
+pub mod zip_ends;
+pub use self::zip_ends::{
+    ZipEnds,
+    ZipEndsIterExt
+};
