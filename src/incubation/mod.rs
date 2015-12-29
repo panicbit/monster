@@ -23,4 +23,7 @@ pub use self::zip_ends::{
 };
 
 pub mod fmt;
-pub use self::fmt::format;
+pub use self::fmt::{
+    format,
+    write_format
+};

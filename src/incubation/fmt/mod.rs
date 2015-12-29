@@ -1,4 +1,4 @@
-use std::fmt::Display;
+use std::fmt::{Display, Write};
 
 pub mod error;
 pub use self::error::{
@@ -27,10 +27,17 @@ use self::State::*;
 ///
 /// assert_eq!(result.unwrap(), "You see {10} tiny monsters");
 /// ```
-pub fn format(fmt: &str, args: &[&Display]) -> Result {
-    use std::fmt::Write;
+pub fn format(fmt: &str, args: &[&Display]) -> Result<String> {
+    let mut buffer = String::with_capacity(fmt.len());
+
+    try!(write_format(&mut buffer, fmt, args));
+
+    Ok(buffer)
+}
+
+/// Same as `format` but writes to a generic buffer instead.
+pub fn write_format<W: Write>(buffer: &mut W, fmt: &str, args: &[&Display]) -> Result<()> {
     let mut args = args.iter();
-    let mut result = String::with_capacity(fmt.len());
     let mut state = Normal;
 
     for ch in fmt.chars() {
@@ -38,18 +45,18 @@ pub fn format(fmt: &str, args: &[&Display]) -> Result {
             Normal => match ch {
                 '{' => state = LeftBrace,
                 '}' => state = RightBrace,
-                _   => result.push(ch)
+                _   => try!(buffer.write_char(ch))
             },
             LeftBrace => match ch {
                 // An escaped '{'
                 '{' => {
-                    result.push(ch);
+                    try!(buffer.write_char(ch));
                     state = Normal
                 },
                 // An escaped '}'
                 '}' => {
                     match args.next() {
-                        Some(arg) => try!(write!(result, "{}", arg)),
+                        Some(arg) => try!(write!(buffer, "{}", arg)),
                         None => return Err(Error::NotEnoughArgs)
                     };
                     state = Normal
@@ -58,7 +65,7 @@ pub fn format(fmt: &str, args: &[&Display]) -> Result {
             },
             RightBrace => match ch {
                 '}' => {
-                    result.push(ch);
+                    try!(buffer.write_char(ch));
                     state = Normal
                 },
                 _ => return return Err(Error::UnexpectedRightBrace) // No standalone right brace allowed
@@ -66,5 +73,5 @@ pub fn format(fmt: &str, args: &[&Display]) -> Result {
         }
     }
     
-    Ok(result)
+    Ok(())
 }

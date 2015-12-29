@@ -2,7 +2,7 @@ use std::fmt;
 use std::error;
 use std::result;
 
-pub type Result = result::Result<String, Error>;
+pub type Result<T> = result::Result<T, Error>;
 
 #[derive(Debug,Eq,PartialEq,Copy,Clone,Hash)]
 pub enum Error {
