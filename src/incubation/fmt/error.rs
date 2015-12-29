@@ -4,7 +4,7 @@ use std::result;
 
 pub type Result = result::Result<String, Error>;
 
-#[derive(Debug)]
+#[derive(Debug,Eq,PartialEq,Copy,Clone,Hash)]
 pub enum Error {
     NotEnoughArgs,
     UnexpectedChar,
