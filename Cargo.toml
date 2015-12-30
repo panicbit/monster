@@ -6,3 +6,7 @@ documentation = "https://panicbit.github.io/monster/monster/index.html"
 description = "Collection of random utilities"
 repository = "https://github.com/panicbit/monster"
 license = "MIT"
+
+[features]
+default = []
+unstable = []
