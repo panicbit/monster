@@ -19,18 +19,11 @@
 /// ```
 #[macro_export]
 macro_rules! mutate {
-    (|$var:ident| $code:expr) => (
-        let $var = {
-            let mut $var = $var;
-            $code;
-            $var
-        };
-    );
     (|$($var:ident),+| $code:expr) => (
-        let ($($var),+) = {
+        let ($($var),+,) = {
             $( let mut $var = $var; )+
             $code;
-            ($($var),+)
+            ($($var),+,)
         };
     );
 }
