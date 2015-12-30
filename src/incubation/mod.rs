@@ -27,3 +27,10 @@ pub use self::fmt::{
     format,
     write_format
 };
+
+#[cfg(feature="unstable")]
+pub mod flip;
+#[cfg(feature="unstable")]
+pub use self::flip::methods::{flip, flip3};
+#[cfg(feature="unstable")]
+pub use self::flip::traits::{FlipFnExt, Flip3FnExt};
