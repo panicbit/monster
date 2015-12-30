@@ -12,9 +12,9 @@ script:
   travis-cargo build &&
   travis-cargo test &&
   travis-cargo bench &&
-  travis-cargo --only stable doc
+  travis-cargo --only nightly doc
 after_success:
-- travis-cargo --only stable doc-upload
+- travis-cargo --only nightly doc-upload
 env:
   global:
   # override the default `--features unstable` used for the nightly branch (optional)
