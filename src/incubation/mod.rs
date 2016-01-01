@@ -34,3 +34,6 @@ pub mod flip;
 pub use self::flip::methods::{flip, flip3};
 #[cfg(feature="unstable")]
 pub use self::flip::traits::{FlipFnExt, Flip3FnExt};
+
+pub mod some_if;
+pub use self::some_if::some_if;
