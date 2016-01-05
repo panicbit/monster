@@ -40,3 +40,6 @@ pub use self::some_if::some_if;
 
 pub mod tuple_indexing;
 pub use self::tuple_indexing::TupleIndexingExt;
+
+pub mod tuple_iter;
+pub use self::tuple_iter::TupleIterExt;
