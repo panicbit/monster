@@ -37,3 +37,6 @@ pub use self::flip::traits::{FlipFnExt, Flip3FnExt};
 
 pub mod some_if;
 pub use self::some_if::some_if;
+
+pub mod tuple_indexing;
+pub use self::tuple_indexing::TupleIndexingExt;
