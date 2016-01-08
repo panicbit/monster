@@ -5,15 +5,14 @@
 //! extern crate lazy_static;
 //! extern crate monster;
 //! 
-//! use monster::incubation::global_init_cleanup::{InitCleanup, GlobalInitHandle, InitHandle};
-//! use std::sync::Arc;
+//! use monster::incubation::global_init_cleanup::*;
 //! 
 //! lazy_static! {
 //!     static ref INIT_HANDLE: GlobalInitHandle<MyLib> = InitHandle::new_global();
 //! }
 //! 
 //! struct MyLib {
-//!     init_handle: Arc<InitHandle<MyLib>>
+//!     init_handle: LocalInitHandle<MyLib>
 //! }
 //! 
 //! impl MyLib {
@@ -53,7 +52,7 @@ impl <T: InitCleanup> InitHandle<T> {
         Mutex::new(None)
     }
 
-    pub fn from_global(handle: &Mutex<Option<Weak<InitHandle<T>>>>) -> Arc<InitHandle<T>> {
+    pub fn from_global(handle: &Mutex<Option<Weak<InitHandle<T>>>>) -> LocalInitHandle<T> {
         let mut handle = handle.lock().unwrap();
         handle.as_ref()
         .and_then(Weak::upgrade)
@@ -76,3 +75,4 @@ impl <T: InitCleanup> Drop for InitHandle<T> {
 
 
 pub type GlobalInitHandle<T> = Mutex<Option<Weak<InitHandle<T>>>>;
+pub type LocalInitHandle<T> = Arc<InitHandle<T>>;
