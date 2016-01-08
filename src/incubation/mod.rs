@@ -43,3 +43,6 @@ pub use self::tuple_indexing::TupleIndexingExt;
 
 pub mod tuple_iter;
 pub use self::tuple_iter::TupleIterExt;
+
+pub mod ref_eq;
+pub use self::ref_eq::RefEq;
