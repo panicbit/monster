@@ -46,3 +46,6 @@ pub use self::tuple_iter::TupleIterExt;
 
 pub mod ref_eq;
 pub use self::ref_eq::RefEq;
+
+pub mod global_init_cleanup;
+pub use self::global_init_cleanup::{InitCleanup, GlobalInitHandle, InitHandle};
