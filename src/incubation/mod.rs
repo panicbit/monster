@@ -52,3 +52,6 @@ pub use self::global_init_cleanup::{InitCleanup, GlobalInitHandle, InitHandle};
 
 pub mod with_lock;
 pub use self::with_lock::WithLock;
+
+pub mod find_and_take;
+pub use self::find_and_take::FindAndTake;
