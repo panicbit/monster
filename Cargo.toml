@@ -1,6 +1,6 @@
 [package]
 name = "monster"
-version = "0.1.12"
+version = "0.1.13"
 authors = ["panicbit <panicbit.dev@gmail.com>"]
 documentation = "https://panicbit.github.io/monster/monster/index.html"
 description = "Collection of random utilities"
