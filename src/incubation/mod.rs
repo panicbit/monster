@@ -55,3 +55,6 @@ pub use self::with_lock::WithLock;
 
 pub mod find_and_take;
 pub use self::find_and_take::FindAndTake;
+
+pub mod slice_drop_last;
+pub use self::slice_drop_last::SliceDropLast;
