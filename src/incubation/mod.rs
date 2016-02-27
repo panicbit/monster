@@ -58,3 +58,6 @@ pub use self::find_and_take::FindAndTake;
 
 pub mod slice_drop_last;
 pub use self::slice_drop_last::SliceDropLast;
+
+pub mod slice_take_while;
+pub use self::slice_take_while::SliceTakeWhile;
