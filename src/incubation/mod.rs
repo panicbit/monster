@@ -61,3 +61,6 @@ pub use self::slice_drop_last::SliceDropLast;
 
 pub mod slice_take_while;
 pub use self::slice_take_while::SliceTakeWhile;
+
+pub mod split_int;
+pub use self::split_int::{SplitInt, split_mut_u16};
