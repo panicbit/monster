@@ -64,3 +64,6 @@ pub use self::slice_take_while::SliceTakeWhile;
 
 pub mod split_int;
 pub use self::split_int::{SplitInt, split_mut_u16};
+
+pub mod reverse_bitorder;
+pub use self::reverse_bitorder::{ReverseBitorder, reverse_bitorder};
