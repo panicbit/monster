@@ -1,3 +1,6 @@
+use std::mem;
+use incubation::SplitInt;
+
 // http://stackoverflow.com/a/746203
 // http://graphics.stanford.edu/~seander/bithacks.html
 const REVERSE_TABLE: [u8; 256] = [
@@ -29,6 +32,21 @@ impl ReverseBitorder for u8 {
     }
 }
 
+impl ReverseBitorder for u16 {
+    fn reverse_bitorder(mut self) -> Self {
+        {
+            let (high, low) = self.split_mut();
+
+            *high = high.reverse_bitorder();
+            *low = low.reverse_bitorder();
+
+            mem::swap(high, low);
+        }
+
+        self
+    }
+}
+
 pub fn reverse_bitorder<T: ReverseBitorder>(this: T) -> T {
     this.reverse_bitorder()
 }
@@ -36,16 +54,31 @@ pub fn reverse_bitorder<T: ReverseBitorder>(this: T) -> T {
 #[cfg(test)]
 mod test {
     use super::*;
-    
+
     #[test]
-    fn sample() {
-        assert_eq!(reverse_bitorder(0b11001010), 0b01010011);
+    fn sample_u8() {
+        let n: u8 = 0b11001010;
+        assert_eq!(reverse_bitorder(n), 0b01010011);
     }
 
     #[test]
-    fn involution() {
+    fn sample_u16() {
+        let n: u16 = 0b11001100_10101010;
+        assert_eq!(reverse_bitorder(n), 0b01010101_00110011);
+    }
+
+    #[test]
+    fn involution_u8() {
         for byte in 0 .. 256 {
             let byte = byte as u8;
+            assert_eq!(byte, reverse_bitorder(reverse_bitorder(byte)));
+        }
+    }
+
+    #[test]
+    fn involution_u16() {
+        for byte in 0 .. 65536 {
+            let byte = byte as u16;
             assert_eq!(byte, reverse_bitorder(reverse_bitorder(byte)));
         }
     }
