@@ -38,6 +38,7 @@ mod test {
         assert_eq!(result, &[1,2]);
     }
 
+    #[test]
     fn slice_take_while_empty() {
         let data = &[1,2,3,4];
         let result = data.take_while(|_| false);
@@ -45,6 +46,7 @@ mod test {
         assert_eq!(result, &[]);
     }
 
+    #[test]
     fn slice_take_while_identity() {
         let data = &[1,2,3,4];
         let result = data.take_while(|_| true);
