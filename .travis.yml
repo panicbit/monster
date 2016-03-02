@@ -20,6 +20,14 @@ after_success:
   - travis-cargo --only nightly doc-upload
   - travis-cargo coveralls --no-sudo
 
+addons:
+  apt:
+    packages:
+      # Required for kcov
+      - libcurl4-openssl-dev
+      - libelf-dev
+      - libdw-dev
+
 env:
   global:
   # override the default `--features unstable` used for the nightly branch (optional)
