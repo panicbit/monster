@@ -5,7 +5,7 @@ authors = ["panicbit <panicbit.dev@gmail.com>"]
 documentation = "https://panicbit.github.io/monster/monster/index.html"
 description = "Collection of random utilities"
 repository = "https://github.com/panicbit/monster"
-license = "MIT"
+license = "MIT/Apache-2.0"
 
 [features]
 default = []
