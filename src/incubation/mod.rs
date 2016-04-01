@@ -67,3 +67,6 @@ pub use self::split_int::{SplitInt, split_mut_u16};
 
 pub mod reverse_bitorder;
 pub use self::reverse_bitorder::{ReverseBitorder, reverse_bitorder};
+
+pub mod owning_ref_mut;
+pub use self::owning_ref_mut::OwningRefMut;
