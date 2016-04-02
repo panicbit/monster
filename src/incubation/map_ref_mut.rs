@@ -1,7 +1,7 @@
 use std::mem;
 
 /// Map the value of a mutable reference.
-/// Useful if you want to apply a `Fn(T) -> T` to a `&mut T`.
+/// Useful if you want to apply a `FnOnce(T) -> T` to a `&mut T`.
 /// This function is unsafe because panicking in `f`
 /// would leave the pointee uninitialized.
 ///
@@ -16,7 +16,7 @@ use std::mem;
 /// assert_eq!(*foo, 777);
 /// ```
 pub unsafe fn map_ref_mut<T, F>(thing: &mut T, f: F) where
-    F: Fn(T) -> T
+    F: FnOnce(T) -> T
 {
     let dummy: T = mem::uninitialized();
     let owned_thing = mem::replace(thing, dummy);
@@ -27,7 +27,7 @@ pub unsafe fn map_ref_mut<T, F>(thing: &mut T, f: F) where
 
 pub trait MapRefMutExt: Sized {
     /// Map the value of a mutable reference.
-    /// Useful if you want to apply a `Fn(T) -> T` to a `&mut T`.
+    /// Useful if you want to apply a `FnOnce(T) -> T` to a `&mut T`.
     /// This function is unsafe because panicking in `f`
     /// would leave the pointee uninitialized.
     ///
@@ -42,7 +42,7 @@ pub trait MapRefMutExt: Sized {
     /// assert_eq!(*foo, 777);
     /// ```
     unsafe fn map_ref_mut<F>(&mut self, f: F) where
-        F: Fn(Self) -> Self
+        F: FnOnce(Self) -> Self
     {
         map_ref_mut(self, f)
     }
