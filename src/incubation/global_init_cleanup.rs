@@ -17,10 +17,8 @@
 //! 
 //! impl MyLib {
 //!     fn new() -> MyLib {
-//!         let init_handle = InitHandle::from_global(&INIT_HANDLE);
-//! 
 //!         MyLib {
-//!             init_handle: init_handle
+//!             init_handle: InitHandle::from_global(&INIT_HANDLE)
 //!         }
 //!     }
 //! }
