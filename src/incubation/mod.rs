@@ -73,3 +73,5 @@ pub use self::reverse_bitorder::{ReverseBitorder, reverse_bitorder};
 
 pub mod owning_ref_mut;
 pub use self::owning_ref_mut::OwningRefMut;
+
+pub mod macro_init_tests;
