@@ -1,6 +1,7 @@
 /// Temporarily rebind variables as mutable
 ///
 /// # Example
+///
 /// ```
 /// #[macro_use(mutate)]
 /// extern crate monster;
