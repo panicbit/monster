@@ -6,5 +6,5 @@
 [![Crates.io License](https://img.shields.io/crates/l/monster.svg?style=flat-square)][crates.io]
 
 [crates.io]: https://crates.io/crates/monster
-[travis]: https://github.com/panicbit/monster
+[travis]: https://travis-ci.org/panicbit/monster
 [coveralls]: https://coveralls.io/github/panicbit/monster
