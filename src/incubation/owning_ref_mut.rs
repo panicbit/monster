@@ -19,7 +19,7 @@ use std::ops::{Deref, DerefMut};
 ///     )
 /// }
 /// 
-/// let items: Vec<_> = demo().by_ref().collect();
+/// let items: Vec<_> = demo().collect();
 /// assert_eq!(items, [2, 4, 6]);
 /// ```
 
@@ -58,5 +58,12 @@ impl <T, R> Deref for OwningRefMut<T, R> {
 impl <T, R> DerefMut for OwningRefMut<T, R> {
     fn deref_mut(&mut self) -> &mut Self::Target {
         self.borrow.as_mut().unwrap()
+    }
+}
+
+impl <T, R: Iterator<Item=U>, U> Iterator for OwningRefMut<T, R> {
+    type Item = U;
+    fn next(&mut self) -> Option<Self::Item> {
+        self.deref_mut().next()
     }
 }
