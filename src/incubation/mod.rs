@@ -75,3 +75,4 @@ pub mod owning_ref_mut;
 pub use self::owning_ref_mut::OwningRefMut;
 
 pub mod macro_init_tests;
+pub mod macro_array_type;
