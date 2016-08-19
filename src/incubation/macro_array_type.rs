@@ -20,7 +20,7 @@ macro_rules! array_type {
     ($NAME:ident, $TYP:ty, $SIZE:expr) => {
         pub struct $NAME(pub [$TYP; $SIZE]);
         
-        impl Clone for $NAME {
+        impl ::std::clone::Clone for $NAME {
             fn clone(&self) -> $NAME {
                 unsafe {
                     let mut copy: [$TYP; $SIZE] = ::std::mem::uninitialized();
@@ -30,25 +30,25 @@ macro_rules! array_type {
             }
         }
         
-        impl<'a> PartialEq<$NAME> for $NAME {
+        impl<'a> ::std::cmp::PartialEq<$NAME> for $NAME {
             fn eq(&self, other: &$NAME) -> bool {
                 &self.0 == &other.0
             }
         }
         
-        impl PartialEq<[$TYP]> for $NAME {
+        impl ::std::cmp::PartialEq<[$TYP]> for $NAME {
             fn eq(&self, other: &[$TYP]) -> bool {
                 &self.0 == other
             }
         }
         
-        impl PartialEq<$NAME> for [$TYP] {
+        impl ::std::cmp::PartialEq<$NAME> for [$TYP] {
             fn eq(&self, other: &$NAME) -> bool {
                 other == self
             }
         }
         
-        impl Eq for $NAME {}
+        impl ::std::cmp::Eq for $NAME {}
         
         impl ::std::ops::Deref for $NAME {
             type Target = [$TYP];
