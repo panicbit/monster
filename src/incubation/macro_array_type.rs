@@ -1,4 +1,5 @@
-/// Create an array wrapper that implements
+/// Create an array wrapper which implements
+///
 /// - `Clone`
 /// - `PartialEq`
 /// - `Eq`
@@ -7,6 +8,8 @@
 /// - `Debug`
 /// - `Display`
 /// - `Deref`
+///
+/// <!-- TODO: Implement Hash -->
 ///
 /// # Example
 ///
