@@ -19,7 +19,6 @@ pub trait WithLock<T> {
 
 impl <T> WithLock<T> for Mutex<T> {
     fn with_lock<F: FnOnce(&mut T) -> R, R>(&self, f: F) -> R {
-        let ref mut data = self.lock().unwrap();
-        f(data)
+        f(&mut self.lock().unwrap())
     }
 }

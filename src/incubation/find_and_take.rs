@@ -23,7 +23,7 @@ impl <T> FindAndTake for Vec<T> {
         let index = self
             .iter()
             .enumerate()
-            .find(|&(_, ref item)| f(item))
+            .find(|&(_, item)| f(item))
             .map(|(i, _)| i);
 
         index.map(|index| self.remove(index))
@@ -33,7 +33,7 @@ impl <T> FindAndTake for Vec<T> {
 impl <T> FindAndTake for Option<T> {
     type Item = T;
     fn find_and_take<F: Fn(&Self::Item) -> bool>(&mut self, f: F) -> Option<Self::Item> {
-        if self.as_ref().map(f).unwrap_or(false) {
+        if self.as_ref().map_or(false, f) {
             self.take()
         } else {
             None

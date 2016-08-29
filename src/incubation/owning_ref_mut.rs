@@ -1,4 +1,3 @@
-use std::mem::transmute;
 use std::ops::{Deref, DerefMut};
 
 /// `OwningRefMut` allows you to return mutably borrowed values.
@@ -31,7 +30,7 @@ pub struct OwningRefMut<T, R> {
 impl <'a, T: 'a, R: 'a> OwningRefMut<T, R> {
     pub fn new<F: FnOnce(&'a mut T) -> R>(owned: Box<T>, f: F) -> OwningRefMut<T, R> {
         let owned = Box::into_raw(owned);
-        let ref_mut: &mut T = unsafe { transmute(owned) };
+        let ref_mut: &mut T = unsafe { &mut *owned };
         let borrow = f(ref_mut);
         OwningRefMut {
             owned: owned,
