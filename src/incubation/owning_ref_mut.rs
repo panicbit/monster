@@ -27,7 +27,7 @@ pub struct OwningRefMut<T, R> {
     borrow: Option<R>
 }
 
-impl <'a, T: 'a, R: 'a> OwningRefMut<T, R> {
+impl <'a, T: 'a, R> OwningRefMut<T, R> {
     pub fn new<F: FnOnce(&'a mut T) -> R>(owned: Box<T>, f: F) -> OwningRefMut<T, R> {
         unsafe {
             let owned = Box::into_raw(owned);
