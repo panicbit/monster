@@ -38,3 +38,9 @@ notifications:
     on_success: change
     on_failure: always
     on_start: false
+  webhooks:
+    urls:
+      - "https://scalar.vector.im/api/neb/services/hooks/dHJhdmlzLWNpLyU0MHBhbmljYml0JTNBbWF0cml4Lm9yZy8lMjFSbVBvZ1VqdXpIT3dRbm1xSG0lM0FtYXRyaXgub3Jn"
+    on_success: always  # always|never|change
+    on_failure: always
+    on_start: never
