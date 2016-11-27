@@ -23,17 +23,17 @@ use std::ops::{Deref, DerefMut};
 /// ```
 
 pub struct OwningRefMut<T, R> {
-    owned: *mut T,
+    _owned: Box<T>,
     borrow: Option<R>
 }
 
 impl <'a, T: 'a, R> OwningRefMut<T, R> {
-    pub fn new<F: FnOnce(&'a mut T) -> R>(owned: Box<T>, f: F) -> OwningRefMut<T, R> {
+    pub fn new<F: FnOnce(&'a mut T) -> R>(mut owned: Box<T>, f: F) -> OwningRefMut<T, R> {
         unsafe {
-            let owned = Box::into_raw(owned);
-            let borrow = f(&mut *owned);
+            let raw_owned = owned.deref_mut() as *mut _;
+            let borrow = f(&mut *raw_owned);
             OwningRefMut {
-                owned: owned,
+                _owned: owned,
                 borrow: Some(borrow)
             }
         }
@@ -42,9 +42,8 @@ impl <'a, T: 'a, R> OwningRefMut<T, R> {
 
 impl <T, R> Drop for OwningRefMut<T, R> {
     fn drop(&mut self) {
-        // Drop borrow first, then drop owned
+        // Drop borrow first
         self.borrow.take();
-        unsafe { Box::from_raw(self.owned) };
     }
 }
 
