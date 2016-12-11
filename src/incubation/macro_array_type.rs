@@ -85,5 +85,11 @@ macro_rules! array_type {
                 self.0[..].fmt(f)
             }
         }
+
+        impl<T> ::std::convert::AsMut<[T]> for $NAME<T> {
+            fn as_mut(&mut self) -> &mut [T] {
+                &mut self.0
+            }
+        }
     }
 }
