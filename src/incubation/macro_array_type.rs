@@ -8,6 +8,7 @@
 /// - `Debug`
 /// - `Display`
 /// - `Deref`
+/// - `AsMut`
 ///
 /// <!-- TODO: Implement Hash -->
 ///
