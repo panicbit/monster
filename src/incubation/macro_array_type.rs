@@ -9,6 +9,7 @@
 /// - `Display`
 /// - `Deref`
 /// - `AsMut`
+/// - `Index`
 ///
 /// <!-- TODO: Implement Hash -->
 ///
@@ -92,5 +93,41 @@ macro_rules! array_type {
                 &mut self.0
             }
         }
+
+        impl<T> ::std::ops::Index<usize> for $NAME<T> {
+            type Output = T;
+            fn index(&self, index: usize) -> &Self::Output {
+                &self.0[index]
+            }
+        }
+
+        impl<T> ::std::ops::Index<::std::ops::Range<usize>> for $NAME<T> {
+            type Output = [T];
+            fn index(&self, index: ::std::ops::Range<usize>) -> &Self::Output {
+                &self.0[index]
+            }
+        }
+
+        impl<T> ::std::ops::Index<::std::ops::RangeTo<usize>> for $NAME<T> {
+            type Output = [T];
+            fn index(&self, index: ::std::ops::RangeTo<usize>) -> &Self::Output {
+                &self.0[index]
+            }
+        }
+
+        impl<T> ::std::ops::Index<::std::ops::RangeFrom<usize>> for $NAME<T> {
+            type Output = [T];
+            fn index(&self, index: ::std::ops::RangeFrom<usize>) -> &Self::Output {
+                &self.0[index]
+            }
+        }
+
+        impl<T> ::std::ops::Index<::std::ops::RangeFull> for $NAME<T> {
+            type Output = [T];
+            fn index(&self, index: ::std::ops::RangeFull) -> &Self::Output {
+                &self.0[index]
+            }
+        }
+
     }
 }
