@@ -1,5 +1,6 @@
 /// Create an array wrapper which implements
 ///
+/// - `Copy`
 /// - `Clone`
 /// - `PartialEq`
 /// - `Eq`
@@ -31,6 +32,8 @@
 macro_rules! array_type {
     ($NAME:ident, $SIZE:expr) => {
         pub struct $NAME<T>(pub [T; $SIZE]);
+
+        impl<T: ::std::marker::Copy> ::std::marker::Copy for $NAME<T> {}
 
         impl<T: Clone> ::std::clone::Clone for $NAME<T> {
             fn clone(&self) -> Self {
